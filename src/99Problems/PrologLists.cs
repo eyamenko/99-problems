@@ -90,8 +90,7 @@ namespace _99Problems
         public static List<object> _1_07(List<object> list)
         {
             return list
-                .Select(i => i is List<object> nestedList ? _1_07(nestedList) : new List<object> { i })
-                .SelectMany(x => x)
+                .SelectMany(i => i is List<object> nestedList ? _1_07(nestedList) : new List<object> { i })
                 .ToList();
         }
     }
