@@ -41,6 +41,17 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2 }, new List<int> { 2, 1 } };
         }
 
+        private static IEnumerable<object[]> _1_06_data()
+        {
+            yield return new object[] { new List<int>(), true };
+            yield return new object[] { new List<int> { 1 }, true };
+            yield return new object[] { new List<int> { 1, 2 }, false };
+            yield return new object[] { new List<int> { 1, 2, 1 }, true };
+            yield return new object[] { new List<int> { 1, 2, 2, 1 }, true };
+            yield return new object[] { new List<int> { 1, 2, 3, 2, 1 }, true };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6 }, false };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -84,6 +95,15 @@ namespace _99Problems.Tests
             var actual = PrologLists._1_05(list);
 
             CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_06_data), DynamicDataSourceType.Method)]
+        public void _1_06_should_find_out_whether_list_is_palindrome(List<int> list, bool expected)
+        {
+            var actual = PrologLists._1_06(list);
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }

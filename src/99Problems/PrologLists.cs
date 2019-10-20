@@ -66,5 +66,19 @@ namespace _99Problems
         {
             return list.AsEnumerable().Reverse().ToList();
         }
+
+        /// <summary>
+        /// Find out whether a list is a palindrome. A palindrome can be read forward or backward; e.g. [x,a,m,a,x].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static bool _1_06<T>(List<T> list)
+        {
+            return list
+                .Take(list.Count / 2)
+                .Select((i, idx) => new { Item = i, Index = idx })
+                .All(x => x.Item.Equals(list[list.Count - (x.Index + 1)]));
+        }
     }
 }
