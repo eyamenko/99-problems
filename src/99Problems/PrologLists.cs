@@ -113,5 +113,30 @@ namespace _99Problems
                 return acc;
             });
         }
+
+        /// <summary>
+        /// Pack consecutive duplicates of list elements into sublists. If a list contains repeated elements they should be placed in separate sublists.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<List<T>> _1_09<T>(List<T> list)
+        {
+            return list.Aggregate(new List<List<T>>(), (acc, i1) =>
+            {
+                var sublist = acc.LastOrDefault();
+
+                if (sublist == null || !sublist.All(i2 => i2.Equals(i1)))
+                {
+                    acc.Add(new List<T> { i1 });
+                }
+                else
+                {
+                    sublist.Add(i1);
+                }
+
+                return acc;
+            });
+        }
     }
 }

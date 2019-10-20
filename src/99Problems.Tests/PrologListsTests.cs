@@ -55,6 +55,7 @@ namespace _99Problems.Tests
         private static IEnumerable<object[]> _1_07_data()
         {
             yield return new object[] { new List<object>(), new List<object>() };
+            yield return new object[] { new List<object> { 1 }, new List<object> { 1 } };
             yield return new object[] { new List<object> { 1, 2, 3, 4, 5 }, new List<object> { 1, 2, 3, 4, 5 } };
             yield return new object[] { new List<object> { 1, new List<object> { 2, new List<object> { 3, 4 }, 5 } }, new List<object> { 1, 2, 3, 4, 5 } };
         }
@@ -62,8 +63,25 @@ namespace _99Problems.Tests
         private static IEnumerable<object[]> _1_08_data()
         {
             yield return new object[] { new List<int>(), new List<int>() };
+            yield return new object[] { new List<int> { 1 }, new List<int> { 1 } };
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5 }, new List<int> { 1, 2, 3, 4, 5 } };
             yield return new object[] { new List<int> { 1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5 }, new List<int> { 1, 2, 3, 1, 4, 5 } };
+        }
+
+        private static IEnumerable<object[]> _1_09_data()
+        {
+            yield return new object[] { new List<int>(), new List<List<int>>() };
+            yield return new object[] { new List<int> { 1 }, new List<List<int>> { new List<int> { 1 } } };
+            yield return new object[]
+            {
+                new List<int> { 1, 2, 3, 4, 5 },
+                new List<List<int>> { new List<int> { 1 }, new List<int> { 2 }, new List<int> { 3 }, new List<int> { 4 }, new List<int> { 5 } }
+            };
+            yield return new object[]
+            {
+                new List<int> { 1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5 },
+                new List<List<int>> { new List<int> { 1, 1, 1, 1 }, new List<int> { 2 }, new List<int> { 3, 3 }, new List<int> { 1, 1 }, new List<int> { 4 }, new List<int> { 5, 5, 5, 5 } }
+            };
         }
 
         [DataTestMethod]
@@ -136,6 +154,20 @@ namespace _99Problems.Tests
             var actual = PrologLists._1_08(list);
 
             CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_09_data), DynamicDataSourceType.Method)]
+        public void _1_09_should_pack_consecutive_duplicates_of_list_elements_into_sublists(List<int> list, List<List<int>> expected)
+        {
+            var actual = PrologLists._1_09(list);
+
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (int i = 0, j = 0; i < expected.Count && j < actual.Count; i++, j++)
+            {
+                CollectionAssert.AreEqual(expected[i], actual[j]);
+            }
         }
     }
 }
