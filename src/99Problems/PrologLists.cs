@@ -93,5 +93,25 @@ namespace _99Problems
                 .SelectMany(i => i is List<object> nestedList ? _1_07(nestedList) : new List<object> { i })
                 .ToList();
         }
+
+        /// <summary>
+        /// Eliminate consecutive duplicates of list elements.
+        /// If a list contains repeated elements they should be replaced with a single copy of the element. The order of the elements should not be changed.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<T> _1_08<T>(List<T> list)
+        {
+            return list.Aggregate(new List<T>(), (acc, i) =>
+            {
+                if (!acc.Any() || !acc.Last().Equals(i))
+                {
+                    acc.Add(i);
+                }
+
+                return acc;
+            });
+        }
     }
 }

@@ -54,7 +54,16 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_07_data()
         {
+            yield return new object[] { new List<object>(), new List<object>() };
+            yield return new object[] { new List<object> { 1, 2, 3, 4, 5 }, new List<object> { 1, 2, 3, 4, 5 } };
             yield return new object[] { new List<object> { 1, new List<object> { 2, new List<object> { 3, 4 }, 5 } }, new List<object> { 1, 2, 3, 4, 5 } };
+        }
+
+        private static IEnumerable<object[]> _1_08_data()
+        {
+            yield return new object[] { new List<int>(), new List<int>() };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5 }, new List<int> { 1, 2, 3, 4, 5 } };
+            yield return new object[] { new List<int> { 1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5 }, new List<int> { 1, 2, 3, 1, 4, 5 } };
         }
 
         [DataTestMethod]
@@ -116,6 +125,15 @@ namespace _99Problems.Tests
         public void _1_07_should_flatten_nested_list_structure(List<object> list, List<object> expected)
         {
             var actual = PrologLists._1_07(list);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_08_data), DynamicDataSourceType.Method)]
+        public void _1_08_should_eliminate_consecutive_duplicates_of_list_elements(List<int> list, List<int> expected)
+        {
+            var actual = PrologLists._1_08(list);
 
             CollectionAssert.AreEqual(expected, actual);
         }
