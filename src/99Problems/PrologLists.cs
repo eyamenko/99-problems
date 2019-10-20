@@ -55,5 +55,16 @@ namespace _99Problems
         {
             return list.Count;
         }
+
+        /// <summary>
+        /// Reverse a list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<T> _1_05<T>(List<T> list)
+        {
+            return list.AsEnumerable().Reverse().ToList();
+        }
     }
 }
