@@ -32,5 +32,17 @@ namespace _99Problems
         {
             return list.ElementAtOrDefault(list.Count - 2);
         }
+
+        /// <summary>
+        /// Find the K'th element of a list. The first element in the list is number 1.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static T _1_03<T>(List<T> list, int index)
+        {
+            return list.ElementAtOrDefault(index - 1);
+        }
     }
 }
