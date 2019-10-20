@@ -52,6 +52,11 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6 }, false };
         }
 
+        private static IEnumerable<object[]> _1_07_data()
+        {
+            yield return new object[] { new List<object> { 1, new List<object> { 2, new List<object> { 3, 4 }, 5 } }, new List<object> { 1, 2, 3, 4, 5 } };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -104,6 +109,15 @@ namespace _99Problems.Tests
             var actual = PrologLists._1_06(list);
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_07_data), DynamicDataSourceType.Method)]
+        public void _1_07_should_flatten_nested_list_structure(List<object> list, List<object> expected)
+        {
+            var actual = PrologLists._1_07(list);
+
+            CollectionAssert.AreEqual(expected, actual);
         }
     }
 }

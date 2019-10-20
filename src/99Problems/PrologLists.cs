@@ -80,5 +80,19 @@ namespace _99Problems
                 .Select((i, idx) => new { Item = i, Index = idx })
                 .All(x => x.Item.Equals(list[list.Count - (x.Index + 1)]));
         }
+
+        /// <summary>
+        /// Flatten a nested list structure.
+        /// Transform a list, possibly holding lists as elements into a 'flat' list by replacing each list with its elements (recursively).
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<object> _1_07(List<object> list)
+        {
+            return list
+                .Select(i => i is List<object> nestedList ? _1_07(nestedList) : new List<object> { i })
+                .SelectMany(x => x)
+                .ToList();
+        }
     }
 }
