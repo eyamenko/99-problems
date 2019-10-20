@@ -14,9 +14,23 @@ namespace _99Problems
         /// <summary>
         /// Find the last element of a list.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static T _1_01<T>(List<T> list)
         {
             return list.LastOrDefault();
+        }
+
+        /// <summary>
+        /// Find the last but one element of a list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static T _1_02<T>(List<T> list)
+        {
+            return list.ElementAtOrDefault(list.Count - 2);
         }
     }
 }
