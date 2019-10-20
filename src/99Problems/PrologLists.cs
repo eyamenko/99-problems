@@ -44,5 +44,16 @@ namespace _99Problems
         {
             return list.ElementAtOrDefault(index - 1);
         }
+
+        /// <summary>
+        /// Find the number of elements of a list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static int _1_04<T>(List<T> list)
+        {
+            return list.Count;
+        }
     }
 }
