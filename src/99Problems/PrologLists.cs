@@ -77,7 +77,7 @@ namespace _99Problems
             return list
                 .Take(list.Count / 2)
                 .Select((i, idx) => new { Item = i, Index = idx })
-                .All(x => x.Item.Equals(list[list.Count - (x.Index + 1)]));
+                .All(i => i.Item.Equals(list[list.Count - (i.Index + 1)]));
         }
 
         /// <summary>
@@ -119,17 +119,17 @@ namespace _99Problems
         /// <returns></returns>
         public static List<List<T>> _1_09<T>(List<T> list)
         {
-            return list.Aggregate(new List<List<T>>(), (acc, i1) =>
+            return list.Aggregate(new List<List<T>>(), (acc, i) =>
             {
                 var sublist = acc.LastOrDefault();
 
-                if (sublist == null || !sublist.All(i2 => i2.Equals(i1)))
+                if (sublist == null || !sublist.All(si => si.Equals(i)))
                 {
-                    acc.Add(new List<T> { i1 });
+                    acc.Add(new List<T> { i });
                 }
                 else
                 {
-                    sublist.Add(i1);
+                    sublist.Add(i);
                 }
 
                 return acc;
@@ -146,6 +146,18 @@ namespace _99Problems
         public static List<Tuple<int, T>> _1_10<T>(List<T> list)
         {
             return _1_09(list).Select(i => new Tuple<int, T>(i.Count, i.First())).ToList();
+        }
+
+        /// <summary>
+        /// Modified run-length encoding. Modify the result of problem 1.10 in such a way that if an element has no duplicates it is simply copied into the result list.
+        /// Only elements with duplicates are transferred as [N,E] terms.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<object> _1_11<T>(List<T> list)
+        {
+            return _1_10(list).Select(i => i.Item1 > 1 ? (object)i : i.Item2).ToList();
         }
     }
 }
