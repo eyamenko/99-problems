@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace _99Problems
 {
@@ -89,9 +88,7 @@ namespace _99Problems
         /// <returns></returns>
         public static List<object> _1_07(List<object> list)
         {
-            return list
-                .SelectMany(i => i is List<object> nestedList ? _1_07(nestedList) : new List<object> { i })
-                .ToList();
+            return list.SelectMany(i => i is List<object> nestedList ? _1_07(nestedList) : new List<object> { i }).ToList();
         }
 
         /// <summary>
@@ -137,6 +134,18 @@ namespace _99Problems
 
                 return acc;
             });
+        }
+
+        /// <summary>
+        /// Run-length encoding of a list. Use the result of problem 1.09 to implement the so-called run-length encoding data compression method.
+        /// Consecutive duplicates of elements are encoded as terms [N,E] where N is the number of duplicates of the element E.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<Tuple<int, T>> _1_10<T>(List<T> list)
+        {
+            return _1_09(list).Select(i => new Tuple<int, T>(i.Count, i.First())).ToList();
         }
     }
 }
