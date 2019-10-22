@@ -206,5 +206,17 @@ namespace _99Problems
         {
             return list.SelectMany(i => Enumerable.Repeat(i, 2)).ToList();
         }
+
+        /// <summary>
+        /// Duplicate the elements of a list a given number of times.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static List<T> _1_15<T>(List<T> list, int count)
+        {
+            return list.SelectMany(i => Enumerable.Repeat(i, count)).ToList();
+        }
     }
 }

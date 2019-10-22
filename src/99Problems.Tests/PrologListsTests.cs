@@ -145,6 +145,14 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3, 3, 4 }, new List<int> { 1, 1, 2, 2, 3, 3, 3, 3, 4, 4 } };
         }
 
+        private static IEnumerable<object[]> _1_15_data()
+        {
+            yield return new object[] { new List<int>(), 3, new List<int>() };
+            yield return new object[] { new List<int> { 1 }, 3, new List<int> { 1, 1, 1 } };
+            yield return new object[] { new List<int> { 1, 2 }, 3, new List<int> { 1, 1, 1, 2, 2, 2 } };
+            yield return new object[] { new List<int> { 1, 2, 3, 3, 4 }, 3, new List<int> { 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4 } };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -272,6 +280,15 @@ namespace _99Problems.Tests
         public void _1_14_should_duplicate_elements_of_list(List<int> list, List<int> expected)
         {
             var actual = PrologLists._1_14(list);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_15_data), DynamicDataSourceType.Method)]
+        public void _1_15_should_duplicate_elements_of_list_given_number_of_times(List<int> list, int count, List<int> expected)
+        {
+            var actual = PrologLists._1_15(list, count);
 
             CollectionAssert.AreEqual(expected, actual);
         }
