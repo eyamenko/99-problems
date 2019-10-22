@@ -195,5 +195,16 @@ namespace _99Problems
                 .Select(i => i.Item1 > 1 ? (object)i : i.Item2)
                 .ToList();
         }
+
+        /// <summary>
+        /// Duplicate the elements of a list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<T> _1_14<T>(List<T> list)
+        {
+            return list.SelectMany(i => Enumerable.Repeat(i, 2)).ToList();
+        }
     }
 }
