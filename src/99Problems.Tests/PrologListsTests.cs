@@ -125,6 +125,18 @@ namespace _99Problems.Tests
             };
         }
 
+        private static IEnumerable<object[]> _1_13_data()
+        {
+            yield return new object[] { new List<int>(), new List<object>() };
+            yield return new object[] { new List<int> { 1 }, new List<object> { 1 } };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5 }, new List<object> { 1, 2, 3, 4, 5 } };
+            yield return new object[]
+            {
+                new List<int> { 1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5 },
+                new List<object> { new Tuple<int, int>(4, 1), 2, new Tuple<int, int>(2, 3), new Tuple<int, int>(2, 1), 4, new Tuple<int, int>(4, 5) }
+            };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -234,6 +246,15 @@ namespace _99Problems.Tests
         public void _1_12_should_decode_run_length_encoded_list(List<object> list, List<object> expected)
         {
             var actual = PrologLists._1_12(list);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_13_data), DynamicDataSourceType.Method)]
+        public void _1_13_should_perform_direct_run_length_encoding_of_list(List<int> list, List<object> expected)
+        {
+            var actual = PrologLists._1_13(list);
 
             CollectionAssert.AreEqual(expected, actual);
         }

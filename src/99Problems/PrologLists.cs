@@ -76,8 +76,8 @@ namespace _99Problems
         {
             return list
                 .Take(list.Count / 2)
-                .Select((i, idx) => new { Item = i, Index = idx })
-                .All(i => i.Item.Equals(list[list.Count - (i.Index + 1)]));
+                .Select((i, idx) => new { Item1 = i, Item2 = _1_03(list, list.Count - idx) })
+                .All(i => i.Item1.Equals(i.Item2));
         }
 
         /// <summary>
@@ -121,15 +121,13 @@ namespace _99Problems
         {
             return list.Aggregate(new List<List<T>>(), (acc, i) =>
             {
-                var sublist = acc.LastOrDefault();
-
-                if (sublist == null || !sublist.All(si => si.Equals(i)))
+                if (!acc.Any() || !acc.Last().Last().Equals(i))
                 {
                     acc.Add(new List<T> { i });
                 }
                 else
                 {
-                    sublist.Add(i);
+                    acc.Last().Add(i);
                 }
 
                 return acc;
@@ -168,6 +166,34 @@ namespace _99Problems
         public static List<object> _1_12(List<object> list)
         {
             return list.SelectMany(i => i is Tuple<int, object> term ? Enumerable.Repeat(term.Item2, term.Item1) : Enumerable.Repeat(i, 1)).ToList();
+        }
+
+        /// <summary>
+        /// Run-length encoding of a list (direct solution). Implement the so-called run-length encoding data compression method directly.
+        /// I.e. don't explicitly create the sublists containing the duplicates, as in problem 1.09, but only count them.
+        /// As in problem 1.11, simplify the result list by replacing the singleton terms [1,X] by X.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<object> _1_13<T>(List<T> list)
+        {
+            return list
+                .Aggregate(new List<Tuple<int, T>>(), (acc, i) =>
+                {
+                    if (!acc.Any() || !acc.Last().Item2.Equals(i))
+                    {
+                        acc.Add(new Tuple<int, T>(1, i));
+                    }
+                    else
+                    {
+                        acc[acc.Count - 1] = new Tuple<int, T>(acc.Last().Item1 + 1, i);
+                    }
+
+                    return acc;
+                })
+                .Select(i => i.Item1 > 1 ? (object)i : i.Item2)
+                .ToList();
         }
     }
 }
