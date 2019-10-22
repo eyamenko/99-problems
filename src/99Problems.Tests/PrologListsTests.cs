@@ -113,6 +113,18 @@ namespace _99Problems.Tests
             };
         }
 
+        private static IEnumerable<object[]> _1_12_data()
+        {
+            yield return new object[] { new List<object>(), new List<object>() };
+            yield return new object[] { new List<object> { 1 }, new List<object> { 1 } };
+            yield return new object[] { new List<object> { 1, 2, 3, 4, 5 }, new List<object> { 1, 2, 3, 4, 5 } };
+            yield return new object[]
+            {
+                new List<object> { new Tuple<int, object>(4, 1), 2, new Tuple<int, object>(2, 3), new Tuple<int, object>(2, 1), 4, new Tuple<int, object>(4, 5) },
+                new List<object> { 1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5 },
+            };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -201,7 +213,7 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_10_data), DynamicDataSourceType.Method)]
-        public void _1_10_should_run_length_encoding_of_list(List<int> list, List<Tuple<int, int>> expected)
+        public void _1_10_should_perform_run_length_encoding_of_list(List<int> list, List<Tuple<int, int>> expected)
         {
             var actual = PrologLists._1_10(list);
 
@@ -210,9 +222,18 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_11_data), DynamicDataSourceType.Method)]
-        public void _1_11_should_run_length_encoding_of_list(List<int> list, List<object> expected)
+        public void _1_11_should_perform_modified_run_length_encoding_of_list(List<int> list, List<object> expected)
         {
             var actual = PrologLists._1_11(list);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_12_data), DynamicDataSourceType.Method)]
+        public void _1_12_should_decode_run_length_encoded_list(List<object> list, List<object> expected)
+        {
+            var actual = PrologLists._1_12(list);
 
             CollectionAssert.AreEqual(expected, actual);
         }

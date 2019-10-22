@@ -159,5 +159,15 @@ namespace _99Problems
         {
             return _1_10(list).Select(i => i.Item1 > 1 ? (object)i : i.Item2).ToList();
         }
+
+        /// <summary>
+        /// Decode a run-length encoded list. Given a run-length code list generated as specified in problem 1.11. Construct its uncompressed version.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<object> _1_12(List<object> list)
+        {
+            return list.SelectMany(i => i is Tuple<int, object> term ? Enumerable.Repeat(term.Item2, term.Item1) : Enumerable.Repeat(i, 1)).ToList();
+        }
     }
 }
