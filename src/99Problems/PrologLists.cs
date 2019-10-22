@@ -121,7 +121,7 @@ namespace _99Problems
         {
             return list.Aggregate(new List<List<T>>(), (acc, i) =>
             {
-                if (!acc.Any() || !acc.Last().Last().Equals(i))
+                if (!acc.Any() || !acc.Last().First().Equals(i))
                 {
                     acc.Add(new List<T> { i });
                 }
@@ -212,11 +212,23 @@ namespace _99Problems
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
-        /// <param name="count"></param>
+        /// <param name="times"></param>
         /// <returns></returns>
-        public static List<T> _1_15<T>(List<T> list, int count)
+        public static List<T> _1_15<T>(List<T> list, int times)
         {
-            return list.SelectMany(i => Enumerable.Repeat(i, count)).ToList();
+            return list.SelectMany(i => Enumerable.Repeat(i, times)).ToList();
+        }
+
+        /// <summary>
+        /// Drop every N'th element from a list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static List<T> _1_16<T>(List<T> list, int number)
+        {
+            return list.Where((_, idx) => (idx + 1) % number != 0).ToList();
         }
     }
 }

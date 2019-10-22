@@ -153,6 +153,15 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3, 3, 4 }, 3, new List<int> { 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4 } };
         }
 
+        private static IEnumerable<object[]> _1_16_data()
+        {
+            yield return new object[] { new List<int>(), 2, new List<int>() };
+            yield return new object[] { new List<int> { 1 }, 2, new List<int> { 1 } };
+            yield return new object[] { new List<int> { 1, 2 }, 2, new List<int> { 1 } };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 2, new List<int> { 1, 3, 5, 7, 9 } };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 3, new List<int> { 1, 2, 4, 5, 7, 8, 10 } };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -286,9 +295,18 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_15_data), DynamicDataSourceType.Method)]
-        public void _1_15_should_duplicate_elements_of_list_given_number_of_times(List<int> list, int count, List<int> expected)
+        public void _1_15_should_duplicate_elements_of_list_given_number_of_times(List<int> list, int times, List<int> expected)
         {
-            var actual = PrologLists._1_15(list, count);
+            var actual = PrologLists._1_15(list, times);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_16_data), DynamicDataSourceType.Method)]
+        public void _1_16_should_drop_every_n_th_element_from_list(List<int> list, int number, List<int> expected)
+        {
+            var actual = PrologLists._1_16(list, number);
 
             CollectionAssert.AreEqual(expected, actual);
         }
