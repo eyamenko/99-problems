@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _99Problems.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace _99Problems.Tests
@@ -55,10 +56,32 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_07_data()
         {
-            yield return new object[] { new List<object>(), new List<object>() };
-            yield return new object[] { new List<object> { 1 }, new List<object> { 1 } };
-            yield return new object[] { new List<object> { 1, 2, 3, 4, 5 }, new List<object> { 1, 2, 3, 4, 5 } };
-            yield return new object[] { new List<object> { 1, new List<object> { 2, new List<object> { 3, 4 }, 5 } }, new List<object> { 1, 2, 3, 4, 5 } };
+            yield return new object[] { new List<EitherValueOrList<int>>(), new List<int>() };
+            yield return new object[] { new List<EitherValueOrList<int>> { new EitherValueOrList<int>(1) }, new List<int> { 1 } };
+            yield return new object[]
+            {
+                new List<EitherValueOrList<int>>
+                {
+                    new EitherValueOrList<int>(1),
+                    new EitherValueOrList<int>(2),
+                    new EitherValueOrList<int>(3),
+                    new EitherValueOrList<int>(4),
+                    new EitherValueOrList<int>(5),
+                },
+                new List<int> { 1, 2, 3, 4, 5 }
+            };
+            yield return new object[]
+            {
+                new List<EitherValueOrList<int>>
+                {
+                    new EitherValueOrList<int>(1),
+                    new EitherValueOrList<int>(
+                        new EitherValueOrList<int>(2),
+                        new EitherValueOrList<int>(new EitherValueOrList<int>(3), new EitherValueOrList<int>(4)),
+                        new EitherValueOrList<int>(5)),
+                },
+                new List<int> { 1, 2, 3, 4, 5 }
+            };
         }
 
         private static IEnumerable<object[]> _1_08_data()
@@ -87,29 +110,47 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_10_data()
         {
-            yield return new object[] { new List<int>(), new List<Tuple<int, int>>() };
-            yield return new object[] { new List<int> { 1 }, new List<Tuple<int, int>> { new Tuple<int, int>(1, 1) } };
+            yield return new object[] { new List<int>(), new List<Term<int>>() };
+            yield return new object[] { new List<int> { 1 }, new List<Term<int>> { new Term<int>(1, 1) } };
             yield return new object[]
             {
                 new List<int> { 1, 2, 3, 4, 5 },
-                new List<Tuple<int, int>> { new Tuple<int, int>(1, 1), new Tuple<int, int>(1, 2), new Tuple<int, int>(1, 3), new Tuple<int, int>(1, 4), new Tuple<int, int>(1, 5) }
+                new List<Term<int>> { new Term<int>(1, 1), new Term<int>(1, 2), new Term<int>(1, 3), new Term<int>(1, 4), new Term<int>(1, 5) }
             };
             yield return new object[]
             {
                 new List<int> { 1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5 },
-                new List<Tuple<int, int>> { new Tuple<int, int>(4, 1), new Tuple<int, int>(1, 2), new Tuple<int, int>(2, 3), new Tuple<int, int>(2, 1), new Tuple<int, int>(1, 4), new Tuple<int, int>(4, 5) }
+                new List<Term<int>> { new Term<int>(4, 1), new Term<int>(1, 2), new Term<int>(2, 3), new Term<int>(2, 1), new Term<int>(1, 4), new Term<int>(4, 5) }
             };
         }
 
         private static IEnumerable<object[]> _1_11_data()
         {
-            yield return new object[] { new List<int>(), new List<object>() };
-            yield return new object[] { new List<int> { 1 }, new List<object> { 1 } };
-            yield return new object[] { new List<int> { 1, 2, 3, 4, 5 }, new List<object> { 1, 2, 3, 4, 5 } };
+            yield return new object[] { new List<int>(), new List<EitherValueOrTerm<int>>() };
+            yield return new object[] { new List<int> { 1 }, new List<EitherValueOrTerm<int>> { new EitherValueOrTerm<int>(1) } };
+            yield return new object[]
+            {
+                new List<int> { 1, 2, 3, 4, 5 },
+                new List<EitherValueOrTerm<int>>
+                {
+                    new EitherValueOrTerm<int>(1),
+                    new EitherValueOrTerm<int>(2),
+                    new EitherValueOrTerm<int>(3),
+                    new EitherValueOrTerm<int>(4),
+                    new EitherValueOrTerm<int>(5)
+                }
+            };
             yield return new object[]
             {
                 new List<int> { 1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5 },
-                new List<object> { new Tuple<int, int>(4, 1), 2, new Tuple<int, int>(2, 3), new Tuple<int, int>(2, 1), 4, new Tuple<int, int>(4, 5) }
+                new List<EitherValueOrTerm<int>>
+                {
+                    new EitherValueOrTerm<int>(4, 1),
+                    new EitherValueOrTerm<int>(2),
+                    new EitherValueOrTerm<int>(2, 3),
+                    new EitherValueOrTerm<int>(2, 1),
+                    new EitherValueOrTerm<int>(4),
+                    new EitherValueOrTerm<int>(4, 5) }
             };
         }
 
@@ -218,9 +259,9 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_07_data), DynamicDataSourceType.Method)]
-        public void _1_07_should_flatten_nested_list_structure(List<object> list, List<object> expected)
+        public void _1_07_should_flatten_nested_list_structure(List<EitherValueOrList<int>> valuesAndLists, List<int> expected)
         {
-            var actual = PrologLists._1_07(list);
+            var actual = PrologLists._1_07(valuesAndLists);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -250,7 +291,7 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_10_data), DynamicDataSourceType.Method)]
-        public void _1_10_should_perform_run_length_encoding_of_list(List<int> list, List<Tuple<int, int>> expected)
+        public void _1_10_should_perform_run_length_encoding_of_list(List<int> list, List<Term<int>> expected)
         {
             var actual = PrologLists._1_10(list);
 
@@ -259,7 +300,7 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_11_data), DynamicDataSourceType.Method)]
-        public void _1_11_should_perform_modified_run_length_encoding_of_list(List<int> list, List<object> expected)
+        public void _1_11_should_perform_modified_run_length_encoding_of_list(List<int> list, List<EitherValueOrTerm<int>> expected)
         {
             var actual = PrologLists._1_11(list);
 

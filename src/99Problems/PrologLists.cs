@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _99Problems.Models;
 
 namespace _99Problems
 {
@@ -84,11 +85,11 @@ namespace _99Problems
         /// Flatten a nested list structure.
         /// Transform a list, possibly holding lists as elements into a 'flat' list by replacing each list with its elements (recursively).
         /// </summary>
-        /// <param name="list"></param>
+        /// <param name="valuesAndLists"></param>
         /// <returns></returns>
-        public static List<object> _1_07(List<object> list)
+        public static List<T> _1_07<T>(List<EitherValueOrList<T>> valuesAndLists) where T : IEquatable<T>
         {
-            return list.SelectMany(i => i is List<object> nestedList ? _1_07(nestedList) : new List<object> { i }).ToList();
+            return valuesAndLists.SelectMany(i => i.HasValue1 ? new List<T> { i.Value1 } : _1_07(i.Value2)).ToList();
         }
 
         /// <summary>
@@ -141,9 +142,9 @@ namespace _99Problems
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Tuple<int, T>> _1_10<T>(List<T> list)
+        public static List<Term<T>> _1_10<T>(List<T> list) where T : IEquatable<T>
         {
-            return _1_09(list).Select(i => new Tuple<int, T>(i.Count, i.First())).ToList();
+            return _1_09(list).Select(i => new Term<T>(i.Count, i.First())).ToList();
         }
 
         /// <summary>
@@ -153,9 +154,9 @@ namespace _99Problems
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<object> _1_11<T>(List<T> list)
+        public static List<EitherValueOrTerm<T>> _1_11<T>(List<T> list) where T : IEquatable<T>
         {
-            return _1_10(list).Select(i => i.Item1 > 1 ? (object)i : i.Item2).ToList();
+            return _1_10(list).Select(i => i.Count > 1 ? new EitherValueOrTerm<T>(i) : new EitherValueOrTerm<T>(i.Element)).ToList();
         }
 
         /// <summary>

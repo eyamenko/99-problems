@@ -2,12 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>_99Problems</RootNamespace>
+    <RootNamespace>_99Problems.Models</RootNamespace>
     <LangVersion>Latest</LangVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\99Problems.Models\99Problems.Models.csproj" />
-  </ItemGroup>
 
 </Project>
