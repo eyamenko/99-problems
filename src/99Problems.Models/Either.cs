@@ -2,9 +2,7 @@
 
 namespace _99Problems.Models
 {
-    public class Either<T1, T2> : IEquatable<Either<T1, T2>>
-        where T1 : IEquatable<T1>
-        where T2 : IEquatable<T2>
+    public class Either<T1, T2>
     {
         public T1 Value1 { get; }
         public T2 Value2 { get; }
@@ -23,14 +21,19 @@ namespace _99Problems.Models
             HasValue2 = true;
         }
 
-        public bool Equals(Either<T1, T2> other)
+        public override bool Equals(object obj)
         {
-            if (other is null)
+            if (obj is null)
             {
                 return false;
             }
 
-            return (HasValue1 && other.HasValue1 && Value1.Equals(other.Value1)) || (HasValue2 && other.HasValue2 && Value2.Equals(other.Value2));
+            return obj is Either<T1, T2> other && ((other.HasValue1 && HasValue1 && other.Value1.Equals(other.Value1)) || (other.HasValue2 && HasValue2 && other.Value2.Equals(other.Value2)));
+        }
+
+        public override int GetHashCode()
+        {
+            return (Value1, Value2).GetHashCode();
         }
     }
 }

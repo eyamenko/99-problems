@@ -2,7 +2,7 @@
 
 namespace _99Problems.Models
 {
-    public class Term<T> : IEquatable<Term<T>> where T : IEquatable<T>
+    public class Term<T>
     {
         public int Count { get; }
         public T Element { get; }
@@ -13,14 +13,19 @@ namespace _99Problems.Models
             Element = element ?? throw new ArgumentNullException(nameof(element));
         }
 
-        public bool Equals(Term<T> other)
+        public override int GetHashCode()
         {
-            if (other is null)
+            return (Count, Element).GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null)
             {
                 return false;
             }
 
-            return Count == other.Count && Element.Equals(other.Element);
+            return obj is Term<T> other && other.Count == Count && other.Element.Equals(Element);
         }
     }
 }
