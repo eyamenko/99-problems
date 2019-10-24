@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using _99Problems.Models;
 
@@ -142,9 +141,9 @@ namespace _99Problems
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Tuple<int, T>> _1_10<T>(List<T> list)
+        public static List<(int, T)> _1_10<T>(List<T> list)
         {
-            return _1_09(list).Select(i => new Tuple<int, T>(i.Count, i.First())).ToList();
+            return _1_09(list).Select(i => (i.Count, i.First())).ToList();
         }
 
         /// <summary>
@@ -229,6 +228,21 @@ namespace _99Problems
         public static List<T> _1_16<T>(List<T> list, int number)
         {
             return list.Where((_, idx) => (idx + 1) % number != 0).ToList();
+        }
+
+        /// <summary>
+        /// Split a list into two parts; the length of the first part is given.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static (List<T>, List<T>) _1_17<T>(List<T> list, int length)
+        {
+            var part1 = list.Take(length).ToList();
+            var part2 = list.Skip(length).ToList();
+
+            return (part1, part2);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _99Problems.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -118,32 +117,17 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_10_data()
         {
-            yield return new object[] { new List<int>(), new List<Tuple<int, int>>() };
-            yield return new object[] { new List<int> { 1 }, new List<Tuple<int, int>> { new Tuple<int, int>(1, 1) } };
+            yield return new object[] { new List<int>(), new List<(int, int)>() };
+            yield return new object[] { new List<int> { 1 }, new List<(int, int)> { (1, 1) } };
             yield return new object[]
             {
                 new List<int> { 1, 2, 3, 4, 5 },
-                new List<Tuple<int, int>>
-                {
-                    new Tuple<int, int>(1, 1),
-                    new Tuple<int, int>(1, 2),
-                    new Tuple<int, int>(1, 3),
-                    new Tuple<int, int>(1, 4),
-                    new Tuple<int, int>(1, 5)
-                }
+                new List<(int, int)> { (1, 1), (1, 2), (1, 3), (1, 4), (1, 5) }
             };
             yield return new object[]
             {
                 new List<int> { 1, 1, 1, 1, 2, 3, 3, 1, 1, 4, 5, 5, 5, 5 },
-                new List<Tuple<int, int>>
-                {
-                    new Tuple<int, int>(4, 1),
-                    new Tuple<int, int>(1, 2),
-                    new Tuple<int, int>(2, 3),
-                    new Tuple<int, int>(2, 1),
-                    new Tuple<int, int>(1, 4),
-                    new Tuple<int, int>(4, 5)
-                }
+                new List<(int, int)> { (4, 1), (1, 2), (2, 3), (2, 1), (1, 4), (4, 5) }
             };
         }
 
@@ -265,6 +249,16 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 3, new List<int> { 1, 2, 4, 5, 7, 8, 10 } };
         }
 
+        private static IEnumerable<object[]> _1_17_data()
+        {
+            yield return new object[]
+            {
+                new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                3,
+                (new List<int> { 1, 2, 3 }, new List<int> { 4, 5, 6, 7, 8, 9, 10 })
+            };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -353,7 +347,7 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_10_data), DynamicDataSourceType.Method)]
-        public void _1_10_should_perform_run_length_encoding_of_list(List<int> list, List<Tuple<int, int>> expected)
+        public void _1_10_should_perform_run_length_encoding_of_list(List<int> list, List<(int, int)> expected)
         {
             var actual = PrologLists._1_10(list);
 
@@ -412,6 +406,16 @@ namespace _99Problems.Tests
             var actual = PrologLists._1_16(list, number);
 
             CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_17_data), DynamicDataSourceType.Method)]
+        public void _1_17_should_split_list_into_two_parts(List<int> list, int length, (List<int>, List<int>) expected)
+        {
+            var actual = PrologLists._1_17(list, length);
+
+            CollectionAssert.AreEqual(expected.Item1, actual.Item1);
+            CollectionAssert.AreEqual(expected.Item2, actual.Item2);
         }
     }
 }

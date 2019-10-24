@@ -1,18 +1,16 @@
-﻿using System;
-
-namespace _99Problems.Models
+﻿namespace _99Problems.Models
 {
-    public class ValueOrTerm<T> : Either<T, Tuple<int, T>>
+    public class ValueOrTerm<T> : Either<T, (int, T)>
     {
         public ValueOrTerm(T value) : base(value)
         {
         }
 
-        public ValueOrTerm(Tuple<int, T> term) : base(term)
+        public ValueOrTerm((int, T) term) : base(term)
         {
         }
 
-        public ValueOrTerm(int count, T element) : this(new Tuple<int, T>(count, element))
+        public ValueOrTerm(int count, T element) : this((count, element))
         {
         }
     }
