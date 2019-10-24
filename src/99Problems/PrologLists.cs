@@ -259,5 +259,19 @@ namespace _99Problems
         {
             return list.Skip(index1 - 1).Take(index2 - index1 + 1).ToList();
         }
+
+        /// <summary>
+        /// Rotate a list N places to the left. Use the predefined predicates length/2 and append/3, as well as the result of problem 1.17.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="places"></param>
+        /// <returns></returns>
+        public static List<T> _1_19<T>(List<T> list, int places)
+        {
+            var parts = _1_17(list, places > 0 ? places : list.Count + places);
+
+            return parts.Item2.Concat(parts.Item1).ToList();
+        }
     }
 }

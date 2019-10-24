@@ -264,6 +264,12 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 3, 7, new List<int> { 3, 4, 5, 6, 7 } };
         }
 
+        private static IEnumerable<object[]> _1_19_data()
+        {
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }, 3, new List<int> { 4, 5, 6, 7, 8, 1, 2, 3 } };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }, -2, new List<int> { 7, 8, 1, 2, 3, 4, 5, 6 } };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -428,6 +434,15 @@ namespace _99Problems.Tests
         public void _1_18_should_extract_slice_from_list(List<int> list, int index1, int index2, List<int> expected)
         {
             var actual = PrologLists._1_18(list, index1, index2);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_19_data), DynamicDataSourceType.Method)]
+        public void _1_19_should_rotate_list_n_places_to_left(List<int> list, int places, List<int> expected)
+        {
+            var actual = PrologLists._1_19(list, places);
 
             CollectionAssert.AreEqual(expected, actual);
         }
