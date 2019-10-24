@@ -287,17 +287,17 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_23_data()
         {
-            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }, 3, 1337, new List<int> { 1, 0, 3 } };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }, 3, 1337, new List<int> { 2, 1, 4 } };
         }
 
         private static IEnumerable<object[]> _1_24_data()
         {
-            yield return new object[] { 6, 49, 1337, new List<int> { 10, 5, 16, 45, 40, 47 } };
+            yield return new object[] { 6, 49, 1337, new List<int> { 11, 6, 17, 45, 41, 47 } };
         }
 
         private static IEnumerable<object[]> _1_25_data()
         {
-            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6 }, 1337, new List<int> { 1, 0, 2, 5, 4, 3 } };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6 }, 1337, new List<int> { 2, 1, 3, 5, 4, 6 } };
         }
 
         [DataTestMethod]

@@ -75,10 +75,7 @@ namespace _99Problems
         /// <returns></returns>
         public static bool _1_06<T>(List<T> list)
         {
-            return list
-                .Take(list.Count / 2)
-                .Select((i, idx) => new { Item1 = i, Item2 = _1_03(list, list.Count - idx) })
-                .All(i => i.Item1.Equals(i.Item2));
+            return list.SequenceEqual(_1_05(list));
         }
 
         /// <summary>
@@ -261,7 +258,7 @@ namespace _99Problems
         /// <returns></returns>
         public static List<T> _1_18<T>(List<T> list, int index1, int index2)
         {
-            return list.Skip(index1 - 1).Take(index2 - index1 + 1).ToList();
+            return list.GetRange(index1 - 1, index2 - index1 + 1);
         }
 
         /// <summary>
@@ -273,7 +270,7 @@ namespace _99Problems
         /// <returns></returns>
         public static List<T> _1_19<T>(List<T> list, int places)
         {
-            var parts = _1_17(list, places > 0 ? places : list.Count + places);
+            var parts = _1_17(list, places < 0 ? list.Count + places : places);
 
             return parts.Item2.Concat(parts.Item1).ToList();
         }
@@ -287,7 +284,9 @@ namespace _99Problems
         /// <returns></returns>
         public static (T, List<T>) _1_20<T>(List<T> list, int index)
         {
-            return (_1_03(list, index), list.Where((_, idx) => (idx + 1) != index).ToList());
+            var parts = _1_17(list, index - 1);
+
+            return (_1_03(list, index), parts.Item1.Concat(parts.Item2.Skip(1)).ToList());
         }
 
         /// <summary>
@@ -300,7 +299,11 @@ namespace _99Problems
         /// <returns></returns>
         public static List<T> _1_21<T>(List<T> list, int index, T element)
         {
-            return list.SelectMany((i, idx) => (idx + 1) == index ? new List<T> { element, i } : new List<T> { i }).ToList();
+            var parts = _1_17(list, index - 1);
+
+            parts.Item1.Add(element);
+
+            return parts.Item1.Concat(parts.Item2).ToList();
         }
 
         /// <summary>
@@ -329,11 +332,11 @@ namespace _99Problems
 
             return Enumerable.Range(0, count).Aggregate((list, new List<T>()), (acc, _) =>
             {
-                var pair = _1_20(acc.list, random.Next(acc.list.Count));
+                var parts = _1_20(acc.list, random.Next(1, acc.list.Count));
 
-                acc.Item2.Add(pair.Item1);
+                acc.Item2.Add(parts.Item1);
 
-                return (pair.Item2, acc.Item2);
+                return (parts.Item2, acc.Item2);
             }).Item2;
         }
 
