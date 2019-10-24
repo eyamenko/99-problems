@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using _99Problems.Models;
 
@@ -272,6 +273,18 @@ namespace _99Problems
             var parts = _1_17(list, places > 0 ? places : list.Count + places);
 
             return parts.Item2.Concat(parts.Item1).ToList();
+        }
+
+        /// <summary>
+        /// Remove the K'th element from a list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static (T, List<T>) _1_20<T>(List<T> list, int index)
+        {
+            return (_1_03(list, index), list.Where((_, idx) => (idx + 1) != index).ToList());
         }
     }
 }
