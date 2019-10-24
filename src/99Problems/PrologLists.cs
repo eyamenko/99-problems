@@ -349,5 +349,16 @@ namespace _99Problems
         {
             return _1_23(_1_22(1, maxValue), count, seed);
         }
+
+        /// <summary>
+        /// Generate a random permutation of the elements of a list. Use the solution of problem 1.23.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="seed"></param>
+        /// <returns></returns>
+        public static List<T> _1_25<T>(List<T> list, int seed)
+        {
+            return _1_23(list, list.Count, seed);
+        }
     }
 }

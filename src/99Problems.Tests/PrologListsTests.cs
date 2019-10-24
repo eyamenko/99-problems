@@ -287,12 +287,17 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_23_data()
         {
-            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }, 3, 0, new List<int> { 5, 6, 4 } };
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }, 3, 1337, new List<int> { 1, 0, 3 } };
         }
 
         private static IEnumerable<object[]> _1_24_data()
         {
-            yield return new object[] { 6, 49, 0, new List<int> { 35, 40, 37, 25, 9, 26 } };
+            yield return new object[] { 6, 49, 1337, new List<int> { 10, 5, 16, 45, 40, 47 } };
+        }
+
+        private static IEnumerable<object[]> _1_25_data()
+        {
+            yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6 }, 1337, new List<int> { 1, 0, 2, 5, 4, 3 } };
         }
 
         [DataTestMethod]
@@ -514,6 +519,15 @@ namespace _99Problems.Tests
         public void _1_24_should_draw_n_different_random_numbers_from_set(int count, int maxValue, int seed, List<int> expected)
         {
             var actual = PrologLists._1_24(count, maxValue, seed);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_25_data), DynamicDataSourceType.Method)]
+        public void _1_25_should_generate_random_permutation_of_elements_of_list(List<int> list, int seed, List<int> expected)
+        {
+            var actual = PrologLists._1_25(list, seed);
 
             CollectionAssert.AreEqual(expected, actual);
         }
