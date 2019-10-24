@@ -286,5 +286,18 @@ namespace _99Problems
         {
             return (_1_03(list, index), list.Where((_, idx) => (idx + 1) != index).ToList());
         }
+
+        /// <summary>
+        /// Insert an element at a given position into a list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="index"></param>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        public static List<T> _1_21<T>(List<T> list, int index, T element)
+        {
+            return list.SelectMany((i, idx) => (idx + 1) == index ? new List<T> { element, i } : new List<T> { i }).ToList();
+        }
     }
 }

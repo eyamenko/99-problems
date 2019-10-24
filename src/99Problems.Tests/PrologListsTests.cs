@@ -275,6 +275,11 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3, 4 }, 2, (2, new List<int> { 1, 3, 4 }) };
         }
 
+        private static IEnumerable<object[]> _1_21_data()
+        {
+            yield return new object[] { new List<int> { 1, 2, 3, 4 }, 2, 5, new List<int> { 1, 5, 2, 3, 4 } };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -460,6 +465,15 @@ namespace _99Problems.Tests
 
             Assert.AreEqual(expected.Item1, actual.Item1);
             CollectionAssert.AreEqual(expected.Item2, actual.Item2);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_21_data), DynamicDataSourceType.Method)]
+        public void _1_21_should_insert_element_at_given_position_into_list(List<int> list, int index, int element, List<int> expected)
+        {
+            var actual = PrologLists._1_21(list, index, element);
+
+            CollectionAssert.AreEqual(expected, actual);
         }
     }
 }
