@@ -299,5 +299,16 @@ namespace _99Problems
         {
             return list.SelectMany((i, idx) => (idx + 1) == index ? new List<T> { element, i } : new List<T> { i }).ToList();
         }
+
+        /// <summary>
+        /// Create a list containing all integers within a given range.
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public static List<int> _1_22(int from, int to)
+        {
+            return Enumerable.Range(from, to - from + 1).ToList();
+        }
     }
 }
