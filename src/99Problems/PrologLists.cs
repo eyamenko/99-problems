@@ -85,11 +85,11 @@ namespace _99Problems
         /// Flatten a nested list structure.
         /// Transform a list, possibly holding lists as elements into a 'flat' list by replacing each list with its elements (recursively).
         /// </summary>
-        /// <param name="valuesAndLists"></param>
+        /// <param name="list"></param>
         /// <returns></returns>
-        public static List<T> _1_07<T>(List<EitherValueOrList<T>> valuesAndLists) where T : IEquatable<T>
+        public static List<T> _1_07<T>(List<ValueOrList<T>> list)
         {
-            return valuesAndLists.SelectMany(i => i.HasValue1 ? new List<T> { i.Value1 } : _1_07(i.Value2)).ToList();
+            return list.SelectMany(i => i.HasValue1 ? new List<T> { i.Value1 } : _1_07(i.Value2)).ToList();
         }
 
         /// <summary>
@@ -142,9 +142,9 @@ namespace _99Problems
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<Term<T>> _1_10<T>(List<T> list) where T : IEquatable<T>
+        public static List<Tuple<int, T>> _1_10<T>(List<T> list)
         {
-            return _1_09(list).Select(i => new Term<T>(i.Count, i.First())).ToList();
+            return _1_09(list).Select(i => new Tuple<int, T>(i.Count, i.First())).ToList();
         }
 
         /// <summary>
@@ -154,9 +154,9 @@ namespace _99Problems
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<EitherValueOrTerm<T>> _1_11<T>(List<T> list) where T : IEquatable<T>
+        public static List<ValueOrTerm<T>> _1_11<T>(List<T> list)
         {
-            return _1_10(list).Select(i => i.Count > 1 ? new EitherValueOrTerm<T>(i) : new EitherValueOrTerm<T>(i.Element)).ToList();
+            return _1_10(list).Select(i => i.Item1 > 1 ? new ValueOrTerm<T>(i) : new ValueOrTerm<T>(i.Item2)).ToList();
         }
 
         /// <summary>
@@ -164,9 +164,9 @@ namespace _99Problems
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<object> _1_12(List<object> list)
+        public static List<T> _1_12<T>(List<ValueOrTerm<T>> list)
         {
-            return list.SelectMany(i => i is Tuple<int, object> term ? Enumerable.Repeat(term.Item2, term.Item1) : Enumerable.Repeat(i, 1)).ToList();
+            return list.SelectMany(i => i.HasValue2 ? Enumerable.Repeat(i.Value2.Item2, i.Value2.Item1) : Enumerable.Repeat(i.Value1, 1)).ToList();
         }
 
         /// <summary>
@@ -177,24 +177,23 @@ namespace _99Problems
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static List<object> _1_13<T>(List<T> list)
+        public static List<ValueOrTerm<T>> _1_13<T>(List<T> list)
         {
-            return list
-                .Aggregate(new List<Tuple<int, T>>(), (acc, i) =>
-                {
-                    if (!acc.Any() || !acc.Last().Item2.Equals(i))
-                    {
-                        acc.Add(new Tuple<int, T>(1, i));
-                    }
-                    else
-                    {
-                        acc[acc.Count - 1] = new Tuple<int, T>(acc.Last().Item1 + 1, i);
-                    }
+            return list.Aggregate(new List<ValueOrTerm<T>>(), (acc, i) =>
+            {
+                var lastValueOrTerm = acc.LastOrDefault();
 
-                    return acc;
-                })
-                .Select(i => i.Item1 > 1 ? (object)i : i.Item2)
-                .ToList();
+                if (!acc.Any() || (lastValueOrTerm.HasValue1 && !lastValueOrTerm.Value1.Equals(i)) || (lastValueOrTerm.HasValue2 && !lastValueOrTerm.Value2.Item2.Equals(i)))
+                {
+                    acc.Add(new ValueOrTerm<T>(i));
+                }
+                else
+                {
+                    acc[acc.Count - 1] = new ValueOrTerm<T>(lastValueOrTerm.HasValue1 ? 2 : lastValueOrTerm.Value2.Item1 + 1, i);
+                }
+
+                return acc;
+            });
         }
 
         /// <summary>

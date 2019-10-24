@@ -5,8 +5,8 @@ namespace _99Problems.Models
     public class Either<T1, T2>
     {
         public T1 Value1 { get; }
-        public T2 Value2 { get; }
         public bool HasValue1 { get; }
+        public T2 Value2 { get; }
         public bool HasValue2 { get; }
 
         public Either(T1 value)
@@ -28,12 +28,12 @@ namespace _99Problems.Models
                 return false;
             }
 
-            return obj is Either<T1, T2> other && ((other.HasValue1 && HasValue1 && other.Value1.Equals(other.Value1)) || (other.HasValue2 && HasValue2 && other.Value2.Equals(other.Value2)));
+            return obj is Either<T1, T2> other && ((other.HasValue1 && HasValue1 && other.Value1.Equals(Value1)) || (other.HasValue2 && HasValue2 && other.Value2.Equals(Value2)));
         }
 
         public override int GetHashCode()
         {
-            return (Value1, Value2).GetHashCode();
+            return (Value1, HasValue1, Value2, HasValue2).GetHashCode();
         }
     }
 }
