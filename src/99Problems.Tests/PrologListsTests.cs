@@ -251,6 +251,8 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_17_data()
         {
+            yield return new object[] { new List<int>(), 1, (new List<int>(), new List<int>()) };
+            yield return new object[] { new List<int> { 1 }, 1, (new List<int> { 1 }, new List<int>()) };
             yield return new object[]
             {
                 new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
@@ -261,6 +263,8 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_18_data()
         {
+            yield return new object[] { new List<int>(), 1, 1, new List<int>() };
+            yield return new object[] { new List<int> { 1 }, 1, 1, new List<int> { 1 } };
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 3, 7, new List<int> { 3, 4, 5, 6, 7 } };
         }
 
@@ -272,31 +276,47 @@ namespace _99Problems.Tests
 
         private static IEnumerable<object[]> _1_20_data()
         {
+            yield return new object[] { new List<int>(), 2, (0, new List<int>()) };
+            yield return new object[] { new List<int> { 1, 2 }, 2, (2, new List<int> { 1 }) };
             yield return new object[] { new List<int> { 1, 2, 3, 4 }, 2, (2, new List<int> { 1, 3, 4 }) };
         }
 
         private static IEnumerable<object[]> _1_21_data()
         {
+            yield return new object[] { new List<int>(), 1, 5, new List<int> { 5 } };
+            yield return new object[] { new List<int> { 1 }, 1, 5, new List<int> { 5, 1 } };
             yield return new object[] { new List<int> { 1, 2, 3, 4 }, 2, 5, new List<int> { 1, 5, 2, 3, 4 } };
         }
 
         private static IEnumerable<object[]> _1_22_data()
         {
+            yield return new object[] { 0, 0, new List<int>() };
+            yield return new object[] { 1, 1, new List<int> { 1 } };
             yield return new object[] { 4, 9, new List<int> { 4, 5, 6, 7, 8, 9 } };
         }
 
         private static IEnumerable<object[]> _1_23_data()
         {
+            yield return new object[] { new List<int>(), 3, 1337, new List<int>() };
+            yield return new object[] { new List<int> { 1 }, 3, 1337, new List<int> { 1 } };
+            yield return new object[] { new List<int> { 1, 2 }, 3, 1337, new List<int> { 1, 2 } };
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }, 3, 1337, new List<int> { 2, 1, 4 } };
         }
 
         private static IEnumerable<object[]> _1_24_data()
         {
+            yield return new object[] { 6, 0, 1337, new List<int>() };
+            yield return new object[] { 6, 1, 1337, new List<int> { 1 } };
+            yield return new object[] { 6, 2, 1337, new List<int> { 1, 2 } };
+            yield return new object[] { 6, 6, 1337, new List<int> { 2, 1, 3, 5, 4, 6 } };
             yield return new object[] { 6, 49, 1337, new List<int> { 11, 6, 17, 45, 41, 47 } };
         }
 
         private static IEnumerable<object[]> _1_25_data()
         {
+            yield return new object[] { new List<int>(), 1337, new List<int>() };
+            yield return new object[] { new List<int> { 1 }, 1337, new List<int> { 1 } };
+            yield return new object[] { new List<int> { 1, 2 }, 1337, new List<int> { 1, 2 } };
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6 }, 1337, new List<int> { 2, 1, 3, 5, 4, 6 } };
         }
 
@@ -461,9 +481,9 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_18_data), DynamicDataSourceType.Method)]
-        public void _1_18_should_extract_slice_from_list(List<int> list, int index1, int index2, List<int> expected)
+        public void _1_18_should_extract_slice_from_list(List<int> list, int fromIndex, int toIndex, List<int> expected)
         {
-            var actual = PrologLists._1_18(list, index1, index2);
+            var actual = PrologLists._1_18(list, fromIndex, toIndex);
 
             CollectionAssert.AreEqual(expected, actual);
         }
@@ -498,9 +518,9 @@ namespace _99Problems.Tests
 
         [DataTestMethod]
         [DynamicData(nameof(_1_22_data), DynamicDataSourceType.Method)]
-        public void _1_22_should_create_list_containing_all_integers_within_given_range(int from, int to, List<int> expected)
+        public void _1_22_should_create_list_containing_all_integers_within_given_range(int fromRange, int toRange, List<int> expected)
         {
-            var actual = PrologLists._1_22(from, to);
+            var actual = PrologLists._1_22(fromRange, toRange);
 
             CollectionAssert.AreEqual(expected, actual);
         }

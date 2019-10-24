@@ -216,7 +216,9 @@ namespace _99Problems
         /// <returns></returns>
         public static List<T> _1_15<T>(List<T> list, int times)
         {
-            return list.SelectMany(i => Enumerable.Repeat(i, times)).ToList();
+            var count = Math.Max(0, times);
+
+            return list.SelectMany(i => Enumerable.Repeat(i, count)).ToList();
         }
 
         /// <summary>
@@ -253,12 +255,15 @@ namespace _99Problems
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
-        /// <param name="index1"></param>
-        /// <param name="index2"></param>
+        /// <param name="fromIndex"></param>
+        /// <param name="toIndex"></param>
         /// <returns></returns>
-        public static List<T> _1_18<T>(List<T> list, int index1, int index2)
+        public static List<T> _1_18<T>(List<T> list, int fromIndex, int toIndex)
         {
-            return list.GetRange(index1 - 1, index2 - index1 + 1);
+            var index = Math.Max(0, fromIndex - 1);
+            var count = Math.Min(list.Count, toIndex - Math.Max(0, fromIndex - 1));
+
+            return list.GetRange(index, count);
         }
 
         /// <summary>
@@ -309,12 +314,14 @@ namespace _99Problems
         /// <summary>
         /// Create a list containing all integers within a given range.
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
+        /// <param name="fromRange"></param>
+        /// <param name="toRange"></param>
         /// <returns></returns>
-        public static List<int> _1_22(int from, int to)
+        public static List<int> _1_22(int fromRange, int toRange)
         {
-            return Enumerable.Range(from, to - from + 1).ToList();
+            var count = Math.Max(0, toRange - Math.Max(0, fromRange - 1));
+
+            return Enumerable.Range(fromRange, count).ToList();
         }
 
         /// <summary>
@@ -330,8 +337,13 @@ namespace _99Problems
         {
             var random = new Random(seed);
 
-            return Enumerable.Range(0, count).Aggregate((list, new List<T>()), (acc, _) =>
+            return Enumerable.Range(0, Math.Max(0, count)).Aggregate((list, new List<T>()), (acc, _) =>
             {
+                if (!acc.list.Any())
+                {
+                    return acc;
+                }
+
                 var parts = _1_20(acc.list, random.Next(1, acc.list.Count));
 
                 acc.Item2.Add(parts.Item1);
