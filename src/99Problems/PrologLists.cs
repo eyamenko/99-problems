@@ -244,5 +244,20 @@ namespace _99Problems
 
             return (part1, part2);
         }
+
+        /// <summary>
+        /// Extract a slice from a list.
+        /// Given two indices, I and K, the slice is the list containing the elements between the I'th and K'th element of the original list (both limits included).
+        /// Start counting the elements with 1.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="index1"></param>
+        /// <param name="index2"></param>
+        /// <returns></returns>
+        public static List<T> _1_18<T>(List<T> list, int index1, int index2)
+        {
+            return list.Skip(index1 - 1).Take(index2 - index1 + 1).ToList();
+        }
     }
 }
