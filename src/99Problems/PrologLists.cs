@@ -310,5 +310,26 @@ namespace _99Problems
         {
             return Enumerable.Range(from, to - from + 1).ToList();
         }
+
+        /// <summary>
+        /// Extract a given number of randomly selected elements from a list. The selected items shall be put into a result list.
+        /// Use the built-in random number generator random/2 and the result of problem 1.20.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="count"></param>
+        /// <param name="seed"></param>
+        /// <returns></returns>
+        public static List<T> _1_23<T>(List<T> list, int count, int seed)
+        {
+            return Enumerable.Range(0, count).Aggregate((list, new List<T>()), (acc, _) =>
+            {
+                var pair = _1_20(acc.list, new Random(seed).Next(acc.list.Count));
+
+                acc.Item2.Add(pair.Item1);
+
+                return (pair.Item2, acc.Item2);
+            }).Item2;
+        }
     }
 }
