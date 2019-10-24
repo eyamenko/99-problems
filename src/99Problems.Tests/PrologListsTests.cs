@@ -290,6 +290,11 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 }, 3, 0, new List<int> { 5, 6, 4 } };
         }
 
+        private static IEnumerable<object[]> _1_24_data()
+        {
+            yield return new object[] { 6, 49, 0, new List<int> { 35, 40, 37, 25, 9, 26 } };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -500,6 +505,15 @@ namespace _99Problems.Tests
         public void _1_23_should_extract_given_number_of_randomly_selected_elements_from_list(List<int> list, int count, int seed, List<int> expected)
         {
             var actual = PrologLists._1_23(list, count, seed);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_24_data), DynamicDataSourceType.Method)]
+        public void _1_24_should_draw_n_different_random_numbers_from_set(int count, int maxValue, int seed, List<int> expected)
+        {
+            var actual = PrologLists._1_24(count, maxValue, seed);
 
             CollectionAssert.AreEqual(expected, actual);
         }

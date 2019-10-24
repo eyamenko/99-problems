@@ -28,7 +28,8 @@ namespace _99Problems.Models
                 return false;
             }
 
-            return obj is Either<T1, T2> other && ((other.HasValue1 && HasValue1 && other.Value1.Equals(Value1)) || (other.HasValue2 && HasValue2 && other.Value2.Equals(Value2)));
+            return obj is Either<T1, T2> other
+                && ((other.HasValue1 && HasValue1 && other.Value1.Equals(Value1)) || (other.HasValue2 && HasValue2 && other.Value2.Equals(Value2)));
         }
 
         public override int GetHashCode()

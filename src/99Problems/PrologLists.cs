@@ -148,7 +148,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Modified run-length encoding. Modify the result of problem 1.10 in such a way that if an element has no duplicates it is simply copied into the result list.
+        /// Modified run-length encoding.
+        /// Modify the result of problem 1.10 in such a way that if an element has no duplicates it is simply copied into the result list.
         /// Only elements with duplicates are transferred as [N,E] terms.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -183,7 +184,9 @@ namespace _99Problems
             {
                 var lastValueOrTerm = acc.LastOrDefault();
 
-                if (!acc.Any() || (lastValueOrTerm.HasValue1 && !lastValueOrTerm.Value1.Equals(i)) || (lastValueOrTerm.HasValue2 && !lastValueOrTerm.Value2.Item2.Equals(i)))
+                if (!acc.Any()
+                    || (lastValueOrTerm.HasValue1 && !lastValueOrTerm.Value1.Equals(i))
+                    || (lastValueOrTerm.HasValue2 && !lastValueOrTerm.Value2.Item2.Equals(i)))
                 {
                     acc.Add(new ValueOrTerm<T>(i));
                 }
@@ -322,14 +325,29 @@ namespace _99Problems
         /// <returns></returns>
         public static List<T> _1_23<T>(List<T> list, int count, int seed)
         {
+            var random = new Random(seed);
+
             return Enumerable.Range(0, count).Aggregate((list, new List<T>()), (acc, _) =>
             {
-                var pair = _1_20(acc.list, new Random(seed).Next(acc.list.Count));
+                var pair = _1_20(acc.list, random.Next(acc.list.Count));
 
                 acc.Item2.Add(pair.Item1);
 
                 return (pair.Item2, acc.Item2);
             }).Item2;
+        }
+
+        /// <summary>
+        /// Lotto: Draw N different random numbers from the set 1..M.
+        /// The selected numbers shall be put into a result list. Combine the solutions of problems 1.22 and 1.23.
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="maxValue"></param>
+        /// <param name="seed"></param>
+        /// <returns></returns>
+        public static List<int> _1_24(int count, int maxValue, int seed)
+        {
+            return _1_23(_1_22(1, maxValue), count, seed);
         }
     }
 }
