@@ -320,6 +320,18 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3, 4, 5, 6 }, 1337, new List<int> { 2, 1, 3, 5, 4, 6 } };
         }
 
+        private static IEnumerable<object[]> _1_26_data()
+        {
+            yield return new object[] { new List<int> { 1 }, 0, new List<List<int>>() };
+            yield return new object[] { new List<int> { 1, 2 }, 1, new List<List<int>> { { new List<int> { 1 } }, { new List<int> { 2 } } } };
+            yield return new object[]
+            {
+                new List<int> { 1, 2, 3 },
+                2,
+                new List<List<int>> { { new List<int> { 1, 2 } }, { new List<int> { 1, 3 } }, new List<int> { 2, 3 } }
+            };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -550,6 +562,20 @@ namespace _99Problems.Tests
             var actual = PrologLists._1_25(list, seed);
 
             CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_26_data), DynamicDataSourceType.Method)]
+        public void _1_26_should_generate_combinations(List<int> list, int length, List<List<int>> expected)
+        {
+            var actual = PrologLists._1_26(list, length);
+
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (int i = 0, j = 0; i < expected.Count && j < actual.Count; i++, j++)
+            {
+                CollectionAssert.AreEqual(expected[i], actual[j]);
+            }
         }
     }
 }

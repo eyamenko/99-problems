@@ -375,5 +375,32 @@ namespace _99Problems
         {
             return _1_23(list, list.Count, seed);
         }
+
+        /// <summary>
+        /// Generate the combinations of K distinct objects chosen from the N elements of a list.
+        /// In how many ways can a committee of 3 be chosen from a group of 12 people?
+        /// We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the well-known binomial coefficients).
+        /// For pure mathematicians, this result may be great. But we want to really generate all the possibilities (via backtracking).
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static List<List<T>> _1_26<T>(List<T> list, int length)
+        {
+            if (length == 0 || !list.Any())
+            {
+                return new List<List<T>>();
+            }
+
+            if (length == 1)
+            {
+                return list.Select(i => new List<T> { i }).ToList();
+            }
+
+            var parts = _1_17(list, 1);
+
+            return _1_26(parts.Item2, length - 1).Select(i => parts.Item1.Concat(i).ToList()).Concat(_1_26(parts.Item2, length)).ToList();
+        }
     }
 }
