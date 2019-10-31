@@ -402,5 +402,25 @@ namespace _99Problems
 
             return _1_26(parts.Item2, length - 1).Select(i => parts.Item1.Concat(i).ToList()).Concat(_1_26(parts.Item2, length)).ToList();
         }
+
+        /// <summary>
+        /// Group the elements of a set into disjoint subsets.
+        /// In how many ways can a group of 9 people work in 3 disjoint subgroups of 2, 3 and 4 persons?
+        /// Write a predicate that generates all the possibilities via backtracking.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<List<List<T>>> _1_27a<T>(List<T> list)
+        {
+            return _1_26(list, 2).Aggregate(new List<List<List<T>>>(), (acc, c1) =>
+            {
+                var diff = list.Except(c1).ToList();
+
+                _1_26(diff, 3).Select(c2 => new List<List<T>> { c1, c2, diff.Except(c2).ToList() }).ToList().ForEach(acc.Add);
+
+                return acc;
+            });
+        }
     }
 }
