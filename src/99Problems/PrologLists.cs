@@ -415,9 +415,37 @@ namespace _99Problems
         {
             return _1_26(list, 2).Aggregate(new List<List<List<T>>>(), (acc, c1) =>
             {
-                var diff = list.Except(c1).ToList();
+                var remaining = list.Except(c1).ToList();
 
-                _1_26(diff, 3).Select(c2 => new List<List<T>> { c1, c2, diff.Except(c2).ToList() }).ToList().ForEach(acc.Add);
+                _1_26(remaining, 3).Select(c2 => new List<List<T>> { c1, c2, remaining.Except(c2).ToList() }).ToList().ForEach(acc.Add);
+
+                return acc;
+            });
+        }
+
+        /// <summary>
+        /// Group the elements of a set into disjoint subsets.
+        /// Generalize the above predicate in a way that we can specify a list of group sizes and the predicate will return a list of groups.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="groupSizes"></param>
+        /// <returns></returns>
+        public static List<List<List<T>>> _1_27b<T>(List<T> list, List<int> groupSizes)
+        {
+            if (!groupSizes.Any())
+            {
+                return new List<List<List<T>>> { new List<List<T>>() };
+            }
+
+            var firstSize = groupSizes.First();
+            var remainingSizes = groupSizes.Skip(1).ToList();
+
+            return _1_26(list, firstSize).Aggregate(new List<List<List<T>>>(), (acc, c) =>
+            {
+                var remaining = list.Except(c).ToList();
+
+                _1_27b(remaining, remainingSizes).Select(g => new List<List<T>> { c }.Concat(g).ToList()).ToList().ForEach(acc.Add);
 
                 return acc;
             });
