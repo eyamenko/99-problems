@@ -450,5 +450,32 @@ namespace _99Problems
                 return acc;
             });
         }
+
+        /// <summary>
+        /// Sorting a list of lists according to length of sublists.
+        /// We suppose that a list (InList) contains elements that are lists themselves.
+        /// The objective is to sort the elements of InList according to their length. E.g. short lists first, longer lists later, or vice versa.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<List<T>> _1_28a<T>(List<List<T>> list)
+        {
+            return list.OrderBy(i => i.Count).ToList();
+        }
+
+        /// <summary>
+        /// Sorting a list of lists according to length of sublists.
+        /// Again, we suppose that a list (InList) contains elements that are lists themselves.
+        /// But this time the objective is to sort the elements of InList according to their length frequency;
+        /// i.e. in the default, where sorting is done ascendingly, lists with rare lengths are placed first, others with a more frequent length come later.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<List<T>> _1_28b<T>(List<List<T>> list)
+        {
+            return list.GroupBy(i => i.Count).OrderBy(g => g.Count()).SelectMany(g => g).ToList();
+        }
     }
 }

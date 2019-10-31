@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _99Problems.Models;
+using _99Problems.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace _99Problems.Tests
@@ -344,6 +345,24 @@ namespace _99Problems.Tests
             yield return new object[] { new List<int> { 1, 2, 3 }, new List<int> { 1, 2 }, 3 };
         }
 
+        private static IEnumerable<object[]> _1_28a_data()
+        {
+            yield return new object[]
+            {
+                new List<List<int>> { new List<int> { 1, 2, 3 }, new List<int> { 4, 5 }, new List<int> { 6, 7, 8 }, new List<int> { 9 } },
+                new List<List<int>> { new List<int> { 9 }, new List<int> { 4, 5 }, new List<int> { 1, 2, 3 }, new List<int> { 6, 7, 8 } }
+            };
+        }
+
+        private static IEnumerable<object[]> _1_28b_data()
+        {
+            yield return new object[]
+            {
+                new List<List<int>> { new List<int> { 1, 2, 3 }, new List<int> { 4, 5 }, new List<int> { 6, 7, 8 }, new List<int> { 9 } },
+                new List<List<int>> { new List<int> { 4, 5 }, new List<int> { 9 }, new List<int> { 1, 2, 3 }, new List<int> { 6, 7, 8 } }
+            };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_1_01_data), DynamicDataSourceType.Method)]
         public void _1_01_should_find_last_element_of_list(List<int> list, int expected)
@@ -422,12 +441,7 @@ namespace _99Problems.Tests
         {
             var actual = PrologLists._1_09(list);
 
-            Assert.AreEqual(expected.Count, actual.Count);
-
-            for (int i = 0, j = 0; i < expected.Count && j < actual.Count; i++, j++)
-            {
-                CollectionAssert.AreEqual(expected[i], actual[j]);
-            }
+            NestedCollectionAssert.AreEqual(expected, actual);
         }
 
         [DataTestMethod]
@@ -582,12 +596,7 @@ namespace _99Problems.Tests
         {
             var actual = PrologLists._1_26(list, length);
 
-            Assert.AreEqual(expected.Count, actual.Count);
-
-            for (int i = 0, j = 0; i < expected.Count && j < actual.Count; i++, j++)
-            {
-                CollectionAssert.AreEqual(expected[i], actual[j]);
-            }
+            NestedCollectionAssert.AreEqual(expected, actual);
         }
 
         [DataTestMethod]
@@ -606,6 +615,24 @@ namespace _99Problems.Tests
             var actual = PrologLists._1_27b(list, groupSizes);
 
             Assert.AreEqual(expected, actual.Count);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_28a_data), DynamicDataSourceType.Method)]
+        public void _1_28a_should_sort_list_of_lists_according_to_length_of_sublists(List<List<int>> list, List<List<int>> expected)
+        {
+            var actual = PrologLists._1_28a(list);
+
+            NestedCollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_1_28b_data), DynamicDataSourceType.Method)]
+        public void _1_28b_should_sort_list_of_lists_according_to_length_of_sublists(List<List<int>> list, List<List<int>> expected)
+        {
+            var actual = PrologLists._1_28b(list);
+
+            NestedCollectionAssert.AreEqual(expected, actual);
         }
     }
 }
