@@ -5,11 +5,7 @@ using _99Problems.Models;
 
 namespace _99Problems
 {
-    /// <summary>
-    /// A list is either empty or it is composed of a first element (head) and a tail, which is a list itself.
-    /// In Prolog we represent the empty list by the atom [] and a non-empty list by a term [H|T] where H denotes the head and T denotes the tail.
-    /// </summary>
-    public static class PrologLists
+    public static class Lists
     {
         /// <summary>
         /// Find the last element of a list.
@@ -179,17 +175,13 @@ namespace _99Problems
         {
             return list.Aggregate(new List<ValueOrTerm<T>>(), (acc, i) =>
             {
-                var lastValueOrTerm = acc.LastOrDefault();
-
-                if (!acc.Any()
-                    || (lastValueOrTerm.HasValue1 && !lastValueOrTerm.Value1.Equals(i))
-                    || (lastValueOrTerm.HasValue2 && !lastValueOrTerm.Value2.Item2.Equals(i)))
+                if (!acc.Any() || (acc.Last().HasValue1 && !acc.Last().Value1.Equals(i)) || (acc.Last().HasValue2 && !acc.Last().Value2.Item2.Equals(i)))
                 {
                     acc.Add(new ValueOrTerm<T>(i));
                 }
                 else
                 {
-                    acc[acc.Count - 1] = new ValueOrTerm<T>(lastValueOrTerm.HasValue1 ? 2 : lastValueOrTerm.Value2.Item1 + 1, i);
+                    acc[acc.Count - 1] = new ValueOrTerm<T>(acc.Last().HasValue1 ? 2 : acc.Last().Value2.Item1 + 1, i);
                 }
 
                 return acc;
