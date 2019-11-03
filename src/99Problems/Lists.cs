@@ -78,6 +78,7 @@ namespace _99Problems
         /// Flatten a nested list structure.
         /// Transform a list, possibly holding lists as elements into a 'flat' list by replacing each list with its elements (recursively).
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <returns></returns>
         public static List<T> _1_07<T>(List<ValueOrList<T>> list)
@@ -156,6 +157,7 @@ namespace _99Problems
         /// <summary>
         /// Decode a run-length encoded list. Given a run-length code list generated as specified in problem 1.11. Construct its uncompressed version.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <returns></returns>
         public static List<T> _1_12<T>(List<ValueOrTerm<T>> list)
@@ -360,6 +362,7 @@ namespace _99Problems
         /// <summary>
         /// Generate a random permutation of the elements of a list. Use the solution of problem 1.23.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
         /// <param name="seed"></param>
         /// <returns></returns>
@@ -392,7 +395,9 @@ namespace _99Problems
 
             var parts = _1_17(list, 1);
 
-            return _1_26(parts.Item2, length - 1).Select(i => parts.Item1.Concat(i).ToList()).Concat(_1_26(parts.Item2, length)).ToList();
+            return _1_26(parts.Item2, length - 1).Select(i => parts.Item1.Concat(i).ToList())
+                                                 .Concat(_1_26(parts.Item2, length))
+                                                 .ToList();
         }
 
         /// <summary>
@@ -409,7 +414,9 @@ namespace _99Problems
             {
                 var remaining = list.Except(c1).ToList();
 
-                _1_26(remaining, 3).Select(c2 => new List<List<T>> { c1, c2, remaining.Except(c2).ToList() }).ToList().ForEach(acc.Add);
+                _1_26(remaining, 3).Select(c2 => new List<List<T>> { c1, c2, remaining.Except(c2).ToList() })
+                                   .ToList()
+                                   .ForEach(acc.Add);
 
                 return acc;
             });
@@ -437,7 +444,9 @@ namespace _99Problems
             {
                 var remaining = list.Except(c).ToList();
 
-                _1_27b(remaining, remainingSizes).Select(g => new List<List<T>> { c }.Concat(g).ToList()).ToList().ForEach(acc.Add);
+                _1_27b(remaining, remainingSizes).Select(g => new List<List<T>> { c }.Concat(g).ToList())
+                                                 .ToList()
+                                                 .ForEach(acc.Add);
 
                 return acc;
             });
@@ -467,7 +476,10 @@ namespace _99Problems
         /// <returns></returns>
         public static List<List<T>> _1_28b<T>(List<List<T>> list)
         {
-            return list.GroupBy(i => i.Count).OrderBy(g => g.Count()).SelectMany(g => g).ToList();
+            return list.GroupBy(i => i.Count)
+                       .OrderBy(g => g.Count())
+                       .SelectMany(g => g)
+                       .ToList();
         }
     }
 }

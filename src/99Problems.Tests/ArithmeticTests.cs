@@ -31,6 +31,7 @@ namespace _99Problems.Tests
             yield return new object[] { 3, new List<int> { 3 } };
             yield return new object[] { 4, new List<int> { 2, 2 } };
             yield return new object[] { 5, new List<int> { 5 } };
+            yield return new object[] { 10, new List<int> { 2, 5 } };
             yield return new object[] { 20, new List<int> { 2, 2, 5 } };
             yield return new object[] { 315, new List<int> { 3, 3, 5, 7 } };
         }

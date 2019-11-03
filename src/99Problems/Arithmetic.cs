@@ -13,7 +13,12 @@ namespace _99Problems
         /// <returns></returns>
         public static bool _2_01(int number)
         {
-            return number > 1 && Enumerable.Range(2, Convert.ToInt32(Math.Round(Math.Sqrt(number))) - 1).All(n => number % n != 0);
+            if (number < 2)
+            {
+                return false;
+            }
+
+            return Enumerable.Range(2, Convert.ToInt32(Math.Round(Math.Sqrt(number))) - 1).All(n => number % n != 0);
         }
 
         /// <summary>
@@ -21,25 +26,19 @@ namespace _99Problems
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static List<int> _2_02(int number, List<int> result = null)
+        public static List<int> _2_02(int number)
         {
-            result ??= new List<int>();
-
             if (number < 2)
             {
-                return result;
+                return new List<int>();
             }
 
-            var primeFactor = Enumerable.Range(2, number - 1).Where(_2_01).FirstOrDefault(n => number % n == 0);
-
-            if (primeFactor == default)
-            {
-                return result;
-            }
-
-            result.Add(primeFactor);
-
-            return _2_02(number / primeFactor, result);
+            return Enumerable.Range(2, number - 1)
+                             .Where(_2_01)
+                             .SkipWhile(n => number % n != 0)
+                             .Take(1)
+                             .SelectMany(n => new List<int> { n }.Concat(_2_02(number / n)))
+                             .ToList();
         }
     }
 }
