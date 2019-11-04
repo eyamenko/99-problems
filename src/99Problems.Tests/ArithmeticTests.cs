@@ -49,6 +49,13 @@ namespace _99Problems.Tests
             yield return new object[] { 315, new List<(int, int)> { (2, 3), (1, 5), (1, 7) } };
         }
 
+        private static IEnumerable<object[]> _2_04_data()
+        {
+            yield return new object[] { 0, 1, new List<int>() };
+            yield return new object[] { 2, 2, new List<int> { 2 } };
+            yield return new object[] { 0, 20, new List<int> { 2, 3, 5, 7, 11, 13, 17, 19 } };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_2_01_data), DynamicDataSourceType.Method)]
         public void _2_01_should_determine_whether_given_integer_number_is_prime(int number, bool expected)
@@ -72,6 +79,15 @@ namespace _99Problems.Tests
         public void _2_03_should_determine_prime_factors_of_given_positive_integer(int number, List<(int, int)> expected)
         {
             var actual = Arithmetic._2_03(number);
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_2_04_data), DynamicDataSourceType.Method)]
+        public void _2_04_should_construct_list_of_prime_numbers(int fromRange, int toRange, List<int> expected)
+        {
+            var actual = Arithmetic._2_04(fromRange, toRange);
 
             CollectionAssert.AreEqual(expected, actual);
         }

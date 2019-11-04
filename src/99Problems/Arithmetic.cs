@@ -51,5 +51,16 @@ namespace _99Problems
         {
             return Lists._1_10(_2_02(number));
         }
+
+        /// <summary>
+        /// A list of prime numbers. Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
+        /// </summary>
+        /// <param name="fromRange"></param>
+        /// <param name="toRange"></param>
+        /// <returns></returns>
+        public static List<int> _2_04(int fromRange, int toRange)
+        {
+            return Lists._1_22(fromRange, toRange).Where(_2_01).ToList();
+        }
     }
 }
