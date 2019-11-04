@@ -40,5 +40,16 @@ namespace _99Problems
                              .SelectMany(n => new List<int> { n }.Concat(_2_02(number / n)))
                              .ToList();
         }
+
+        /// <summary>
+        /// Determine the prime factors of a given positive integer (2). Construct a list containing the prime factors and their multiplicity.
+        /// The solution of problem 1.10 may be helpful.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static List<(int, int)> _2_03(int number)
+        {
+            return Lists._1_10(_2_02(number));
+        }
     }
 }
