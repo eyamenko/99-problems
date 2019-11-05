@@ -119,5 +119,16 @@ namespace _99Problems
 
             return _2_07(number1, number2 - number1);
         }
+
+        /// <summary>
+        /// Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
+        /// </summary>
+        /// <param name="number1"></param>
+        /// <param name="number2"></param>
+        /// <returns></returns>
+        public static bool _2_08(int number1, int number2)
+        {
+            return _2_07(number1, number2) == 1;
+        }
     }
 }

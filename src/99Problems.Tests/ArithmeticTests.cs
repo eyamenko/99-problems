@@ -80,6 +80,14 @@ namespace _99Problems.Tests
         {
             yield return new object[] { 36, 63, 9 };
             yield return new object[] { 10, 5, 5 };
+            yield return new object[] { 35, 64, 1 };
+        }
+
+        private static IEnumerable<object[]> _2_08_data()
+        {
+            yield return new object[] { 36, 63, false };
+            yield return new object[] { 10, 5, false };
+            yield return new object[] { 35, 64, true };
         }
 
         [DataTestMethod]
@@ -141,6 +149,15 @@ namespace _99Problems.Tests
         public void _2_07_should_determine_greatest_common_divisor_of_two_positive_integer_numbers(int number1, int number2, int expected)
         {
             var actual = Arithmetic._2_07(number1, number2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_2_08_data), DynamicDataSourceType.Method)]
+        public void _2_08_should_determine_whether_two_positive_integer_numbers_are_coprime(int number1, int number2, bool expected)
+        {
+            var actual = Arithmetic._2_08(number1, number2);
 
             Assert.AreEqual(expected, actual);
         }
