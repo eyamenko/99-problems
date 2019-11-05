@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\99Problems.Helpers\99Problems.Helpers.csproj" />
     <ProjectReference Include="..\99Problems\99Problems.csproj" />
   </ItemGroup>
 

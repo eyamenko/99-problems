@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace _99Problems.Tests.Helpers
+namespace _99Problems.Helpers
 {
     public static class NestedCollectionAssert
     {

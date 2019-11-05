@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using _99Problems.Helpers;
 using _99Problems.Models;
-using _99Problems.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace _99Problems.Tests
