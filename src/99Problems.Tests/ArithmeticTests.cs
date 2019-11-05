@@ -90,6 +90,12 @@ namespace _99Problems.Tests
             yield return new object[] { 35, 64, true };
         }
 
+        private static IEnumerable<object[]> _2_09_data()
+        {
+            yield return new object[] { 10, 4 };
+            yield return new object[] { 1, 1 };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_2_01_data), DynamicDataSourceType.Method)]
         public void _2_01_should_determine_whether_given_integer_number_is_prime(int number, bool expected)
@@ -158,6 +164,15 @@ namespace _99Problems.Tests
         public void _2_08_should_determine_whether_two_positive_integer_numbers_are_coprime(int number1, int number2, bool expected)
         {
             var actual = Arithmetic._2_08(number1, number2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_2_09_data), DynamicDataSourceType.Method)]
+        public void _2_09_should_calculate_Eulers_totient_function(int number, int expected)
+        {
+            var actual = Arithmetic._2_09(number);
 
             Assert.AreEqual(expected, actual);
         }

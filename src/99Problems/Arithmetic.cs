@@ -130,5 +130,21 @@ namespace _99Problems
         {
             return _2_07(number1, number2) == 1;
         }
+
+        /// <summary>
+        /// Calculate Euler's totient function phi(m).
+        /// Euler's so-called totient function phi(m) is defined as the number of positive integers r (1 <= r < m) that are coprime to m.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static int _2_09(int number)
+        {
+            if (number == 1)
+            {
+                return 1;
+            }
+
+            return Lists._1_22(1, number - 1).Count(n => _2_08(n, number));
+        }
     }
 }
