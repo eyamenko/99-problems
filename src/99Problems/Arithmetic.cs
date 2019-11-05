@@ -62,5 +62,24 @@ namespace _99Problems
         {
             return Lists._1_22(fromRange, toRange).Where(_2_01).ToList();
         }
+
+        /// <summary>
+        /// Goldbach's conjecture. Goldbach's conjecture says that every positive even number greater than 2 is the sum of two prime numbers.
+        /// Example: 28 = 5 + 23. It is one of the most famous facts in number theory that has not been proved to be correct in the general case.
+        /// It has been numerically confirmed up to very large numbers. Write a predicate to find the two prime numbers that sum up to a given even integer.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static (int, int) _2_05(int number)
+        {
+            if (number % 2 != 0)
+            {
+                return default;
+            }
+
+            var primeNumbers = _2_04(2, number);
+
+            return primeNumbers.Select(n => (n, number - n)).FirstOrDefault(i => primeNumbers.Contains(i.Item2));
+        }
     }
 }
