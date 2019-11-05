@@ -96,6 +96,12 @@ namespace _99Problems.Tests
             yield return new object[] { 1, 1 };
         }
 
+        private static IEnumerable<object[]> _2_10_data()
+        {
+            yield return new object[] { 10, 4 };
+            yield return new object[] { 1, 1 };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_2_01_data), DynamicDataSourceType.Method)]
         public void _2_01_should_determine_whether_given_integer_number_is_prime(int number, bool expected)
@@ -173,6 +179,15 @@ namespace _99Problems.Tests
         public void _2_09_should_calculate_Eulers_totient_function(int number, int expected)
         {
             var actual = Arithmetic._2_09(number);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_2_10_data), DynamicDataSourceType.Method)]
+        public void _2_10_should_calculate_Eulers_totient_function(int number, int expected)
+        {
+            var actual = Arithmetic._2_10(number);
 
             Assert.AreEqual(expected, actual);
         }

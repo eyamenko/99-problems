@@ -146,5 +146,20 @@ namespace _99Problems
 
             return Lists._1_22(1, number - 1).Count(n => _2_08(n, number));
         }
+
+        /// <summary>
+        /// Calculate Euler's totient function phi(m) (2).
+        /// See problem 2.09 for the definition of Euler's totient function.
+        /// If the list of the prime factors of a number m is known in the form of problem 2.03 then the function phi(m) can be efficiently calculated as follows:
+        /// Let [[p1,m1],[p2,m2],[p3,m3],...] be the list of prime factors (and their multiplicities) of a given number m.
+        /// Then phi(m) can be calculated with the following formula: phi(m) = (p1 - 1) * p1**(m1 - 1) * (p2 - 1) * p2**(m2 - 1) * (p3 - 1) * p3**(m3 - 1) * ...
+        /// Note that a**b stands for the b'th power of a.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static int _2_10(int number)
+        {
+            return _2_03(number).Aggregate(1, (acc, i) => acc * (i.Item2 - 1) * Convert.ToInt32(Math.Pow(i.Item2, i.Item1 - 1)));
+        }
     }
 }
