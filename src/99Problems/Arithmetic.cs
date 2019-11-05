@@ -81,5 +81,17 @@ namespace _99Problems
 
             return primeNumbers.Select(n => (n, number - n)).FirstOrDefault(i => primeNumbers.Contains(i.Item2));
         }
+
+        /// <summary>
+        /// A list of Goldbach compositions.
+        /// Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
+        /// </summary>
+        /// <param name="fromRange"></param>
+        /// <param name="toRange"></param>
+        /// <returns></returns>
+        public static List<(int, (int, int))> _2_06(int fromRange, int toRange)
+        {
+            return Lists._1_22(fromRange, toRange).Where(n => n % 2 == 0).Select(n => (n, _2_05(n))).ToList();
+        }
     }
 }

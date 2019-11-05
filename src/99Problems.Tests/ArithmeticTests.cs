@@ -68,6 +68,14 @@ namespace _99Problems.Tests
             yield return new object[] { 28, (5, 23) };
         }
 
+        private static IEnumerable<object[]> _2_06_data()
+        {
+            yield return new object[]
+            {
+                9, 20, new List<(int, (int, int))> { (10, (3, 7)), (12, (5, 7)), (14, (3, 11)), (16, (3, 13)), (18, (5, 13)), (20, (3, 17)) }
+            };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_2_01_data), DynamicDataSourceType.Method)]
         public void _2_01_should_determine_whether_given_integer_number_is_prime(int number, bool expected)
@@ -111,6 +119,15 @@ namespace _99Problems.Tests
             var actual = Arithmetic._2_05(number);
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_2_06_data), DynamicDataSourceType.Method)]
+        public void _2_06_should_construct_list_of_Goldbach_compositions(int fromRange, int toRange, List<(int, (int, int))> expected)
+        {
+            var actual = Arithmetic._2_06(fromRange, toRange);
+
+            CollectionAssert.AreEqual(expected, actual);
         }
     }
 }
