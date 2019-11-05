@@ -93,5 +93,31 @@ namespace _99Problems
         {
             return Lists._1_22(fromRange, toRange).Where(n => n % 2 == 0).Select(n => (n, _2_05(n))).ToList();
         }
+
+        /// <summary>
+        /// Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
+        /// </summary>
+        /// <param name="number1"></param>
+        /// <param name="number2"></param>
+        /// <returns></returns>
+        public static int _2_07(int number1, int number2)
+        {
+            if (number1 == 0)
+            {
+                return number2;
+            }
+
+            if (number2 == 0)
+            {
+                return number1;
+            }
+
+            if (number1 > number2)
+            {
+                return _2_07(number1 - number2, number2);
+            }
+
+            return _2_07(number1, number2 - number1);
+        }
     }
 }

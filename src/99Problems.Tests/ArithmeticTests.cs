@@ -76,6 +76,12 @@ namespace _99Problems.Tests
             };
         }
 
+        private static IEnumerable<object[]> _2_07_data()
+        {
+            yield return new object[] { 36, 63, 9 };
+            yield return new object[] { 10, 5, 5 };
+        }
+
         [DataTestMethod]
         [DynamicData(nameof(_2_01_data), DynamicDataSourceType.Method)]
         public void _2_01_should_determine_whether_given_integer_number_is_prime(int number, bool expected)
@@ -128,6 +134,15 @@ namespace _99Problems.Tests
             var actual = Arithmetic._2_06(fromRange, toRange);
 
             CollectionAssert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(_2_07_data), DynamicDataSourceType.Method)]
+        public void _2_07_should_determine_greatest_common_divisor_of_two_positive_integer_numbers(int number1, int number2, int expected)
+        {
+            var actual = Arithmetic._2_07(number1, number2);
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }
