@@ -44,5 +44,29 @@ namespace _99Problems
 
             return booleans.SelectMany(a => _3_01((b, c) => func(a, b, c)).Select(i => (a, i.Item1, i.Item2, i.Item3))).ToList();
         }
+
+        /// <summary>
+        /// Gray code.
+        /// An n-bit Gray code is a sequence of n-bit strings constructed according to certain rules. For example,
+        /// n = 1: C(1) = ['0','1'].
+        /// n = 2: C(2) = ['00','01','11','10'].
+        /// n = 3: C(3) = ['000','001','011','010','110','111','101','100'].
+        /// Find out the construction rules and write a predicate with the following specification:
+        /// % gray(N,C) :- C is the N-bit Gray code
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static List<string> _3_04(int number)
+        {
+            if (number == 1)
+            {
+                return new List<string> { "0", "1" };
+            }
+
+            var left = _3_04(number - 1);
+            var right = Lists._1_05(left);
+
+            return left.Select(i => "0" + i).Concat(right.Select(i => "1" + i)).ToList();
+        }
     }
 }
