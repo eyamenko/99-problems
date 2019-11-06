@@ -16,5 +16,10 @@
         {
             return LogicalPredicates.Not(a);
         }
+
+        public static bool Equ(this bool a, bool b)
+        {
+            return LogicalPredicates.Equ(a, b);
+        }
     }
 }

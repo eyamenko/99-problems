@@ -22,7 +22,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Determine the prime factors of a given positive integer. Construct a flat list containing the prime factors in ascending order.
+        /// Determine the prime factors of a given positive integer.
+        /// Construct a flat list containing the prime factors in ascending order.
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
@@ -42,8 +43,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Determine the prime factors of a given positive integer (2). Construct a list containing the prime factors and their multiplicity.
-        /// The solution of problem 1.10 may be helpful.
+        /// Determine the prime factors of a given positive integer (2).
+        /// Construct a list containing the prime factors and their multiplicity. The solution of problem 1.10 may be helpful.
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
@@ -53,7 +54,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// A list of prime numbers. Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
+        /// A list of prime numbers.
+        /// Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
         /// </summary>
         /// <param name="fromRange"></param>
         /// <param name="toRange"></param>
@@ -64,7 +66,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Goldbach's conjecture. Goldbach's conjecture says that every positive even number greater than 2 is the sum of two prime numbers.
+        /// Goldbach's conjecture.
+        /// Goldbach's conjecture says that every positive even number greater than 2 is the sum of two prime numbers.
         /// Example: 28 = 5 + 23. It is one of the most famous facts in number theory that has not been proved to be correct in the general case.
         /// It has been numerically confirmed up to very large numbers. Write a predicate to find the two prime numbers that sum up to a given even integer.
         /// </summary>
@@ -95,7 +98,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Determine the greatest common divisor of two positive integer numbers. Use Euclid's algorithm.
+        /// Determine the greatest common divisor of two positive integer numbers.
+        /// Use Euclid's algorithm.
         /// </summary>
         /// <param name="number1"></param>
         /// <param name="number2"></param>
@@ -121,7 +125,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Determine whether two positive integer numbers are coprime. Two numbers are coprime if their greatest common divisor equals 1.
+        /// Determine whether two positive integer numbers are coprime.
+        /// Two numbers are coprime if their greatest common divisor equals 1.
         /// </summary>
         /// <param name="number1"></param>
         /// <param name="number2"></param>

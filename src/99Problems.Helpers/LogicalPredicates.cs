@@ -16,5 +16,10 @@
         {
             return !a;
         }
+
+        public static bool Equ(bool a, bool b)
+        {
+            return a == b;
+        }
     }
 }

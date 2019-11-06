@@ -30,7 +30,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Find the K'th element of a list. The first element in the list is number 1.
+        /// Find the K'th element of a list.
+        /// The first element in the list is number 1.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -64,7 +65,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Find out whether a list is a palindrome. A palindrome can be read forward or backward; e.g. [x,a,m,a,x].
+        /// Find out whether a list is a palindrome.
+        /// A palindrome can be read forward or backward; e.g. [x,a,m,a,x].
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -107,7 +109,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Pack consecutive duplicates of list elements into sublists. If a list contains repeated elements they should be placed in separate sublists.
+        /// Pack consecutive duplicates of list elements into sublists.
+        /// If a list contains repeated elements they should be placed in separate sublists.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -130,7 +133,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Run-length encoding of a list. Use the result of problem 1.09 to implement the so-called run-length encoding data compression method.
+        /// Run-length encoding of a list.
+        /// Use the result of problem 1.09 to implement the so-called run-length encoding data compression method.
         /// Consecutive duplicates of elements are encoded as terms [N,E] where N is the number of duplicates of the element E.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -155,7 +159,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Decode a run-length encoded list. Given a run-length code list generated as specified in problem 1.11. Construct its uncompressed version.
+        /// Decode a run-length encoded list.
+        /// Given a run-length code list generated as specified in problem 1.11. Construct its uncompressed version.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -166,7 +171,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Run-length encoding of a list (direct solution). Implement the so-called run-length encoding data compression method directly.
+        /// Run-length encoding of a list (direct solution).
+        /// Implement the so-called run-length encoding data compression method directly.
         /// I.e. don't explicitly create the sublists containing the duplicates, as in problem 1.09, but only count them.
         /// As in problem 1.11, simplify the result list by replacing the singleton terms [1,X] by X.
         /// </summary>
@@ -261,7 +267,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Rotate a list N places to the left. Use the predefined predicates length/2 and append/3, as well as the result of problem 1.17.
+        /// Rotate a list N places to the left.
+        /// Use the predefined predicates length/2 and append/3, as well as the result of problem 1.17.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -319,8 +326,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Extract a given number of randomly selected elements from a list. The selected items shall be put into a result list.
-        /// Use the built-in random number generator random/2 and the result of problem 1.20.
+        /// Extract a given number of randomly selected elements from a list.
+        /// The selected items shall be put into a result list. Use the built-in random number generator random/2 and the result of problem 1.20.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -360,7 +367,8 @@ namespace _99Problems
         }
 
         /// <summary>
-        /// Generate a random permutation of the elements of a list. Use the solution of problem 1.23.
+        /// Generate a random permutation of the elements of a list.
+        /// Use the solution of problem 1.23.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
