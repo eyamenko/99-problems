@@ -11,5 +11,10 @@
         {
             return a || b;
         }
+
+        public static bool Not(bool a)
+        {
+            return !a;
+        }
     }
 }

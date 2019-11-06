@@ -34,7 +34,7 @@ namespace _99Problems.Tests
                 (false, true, false),
             };
 
-            var actual = LogicAndCodes._3_01((a, b) => a.And(a.Or(b)));
+            var actual = LogicAndCodes._3_02((a, b) => a.And(a.Or(b.Not())));
 
             CollectionAssert.AreEqual(expected, actual);
         }

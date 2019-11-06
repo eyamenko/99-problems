@@ -11,5 +11,10 @@
         {
             return LogicalPredicates.Or(a, b);
         }
+
+        public static bool Not(this bool a)
+        {
+            return LogicalPredicates.Not(a);
+        }
     }
 }
