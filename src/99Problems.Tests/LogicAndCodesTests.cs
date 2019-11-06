@@ -22,5 +22,21 @@ namespace _99Problems.Tests
 
             CollectionAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void _3_02_should_construct_truth_tables_for_logical_expressions()
+        {
+            var expected = new List<(bool, bool, bool)>
+            {
+                (true, false, true),
+                (true, true, true),
+                (false, false, false),
+                (false, true, false),
+            };
+
+            var actual = LogicAndCodes._3_01((a, b) => a.And(a.Or(b)));
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 }
